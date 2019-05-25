@@ -109,7 +109,7 @@ public class MovieController {
                             .into(poster);
                     title.setText(response.body().getTitle());
                     overview.setText(response.body().getOverview());
-                    releaseDate.setText(response.body().getReleaseDate());
+                    releaseDate.setText(response.body().getReleaseDate().replace('-', '/'));
                     average.setText(String.valueOf(response.body().getVote_average()));
 
                 } else {
