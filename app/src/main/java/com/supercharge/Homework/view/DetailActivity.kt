@@ -6,9 +6,7 @@ import com.supercharge.Homework.R
 import android.content.Intent
 import android.widget.TextView
 import com.supercharge.Homework.controller.MovieController
-import kotlinx.android.synthetic.main.activity_detail.poster
-import kotlinx.android.synthetic.main.activity_detail.movie_title
-
+import kotlinx.android.synthetic.main.activity_detail.*
 
 
 class DetailActivity : AppCompatActivity() {
@@ -22,6 +20,6 @@ class DetailActivity : AppCompatActivity() {
         val message = intent.getStringExtra("message")
         print(message)
 
-        MovieController().getMovieById(this, message, poster, movie_title)
+        MovieController().getMovieById(this, message, poster, movie_title, overview, release_date, average)
     }
 }

@@ -82,7 +82,7 @@ public class MovieController {
         });
     }
 
-    public void getMovieById(final AppCompatActivity activity, final String id, final ImageView poster, final TextView title) {
+    public void getMovieById(final AppCompatActivity activity, final String id, final ImageView poster, final TextView title, final TextView overview, final TextView releaseDate, final TextView average) {
 
         final String baseUrl = activity.getResources().getString(R.string.base_url);
         final String apiKey = activity.getResources().getString(R.string.api_key);
@@ -108,6 +108,9 @@ public class MovieController {
                             .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
                             .into(poster);
                     title.setText(response.body().getTitle());
+                    overview.setText(response.body().getOverview());
+                    releaseDate.setText(response.body().getReleaseDate());
+                    average.setText(String.valueOf(response.body().getVote_average()));
 
                 } else {
                     if(response.code() == 400) {
