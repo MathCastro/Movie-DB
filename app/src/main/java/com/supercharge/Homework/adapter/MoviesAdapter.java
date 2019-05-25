@@ -18,10 +18,16 @@ import java.util.List;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewHolder> {
 
-    private List<MovieBO> movies;
+    public interface OnItemClickListener {
+        void onItemClick(MovieBO item);
+    }
 
-    public MoviesAdapter(List<MovieBO> movies) {
+    private List<MovieBO> movies;
+    private final OnItemClickListener listener;
+
+    public MoviesAdapter(List<MovieBO> movies, OnItemClickListener listener) {
         this.movies = movies;
+        this.listener = listener;
     }
 
     @Override
@@ -32,7 +38,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     @Override
     public void onBindViewHolder(MovieViewHolder holder, int position) {
-        holder.bind(movies.get(position));
+        holder.bind(movies.get(position), listener);
     }
 
     @Override
@@ -41,6 +47,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
     }
 
     class MovieViewHolder extends RecyclerView.ViewHolder {
+
         TextView title;
         TextView rating;
         TextView description;
@@ -55,7 +62,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
             description = itemView.findViewById(R.id.description);
         }
 
-        public void bind(MovieBO movie) {
+        public void bind(final MovieBO movie, final OnItemClickListener listener) {
             title.setText(movie.getTitle());
             rating.setText(String.valueOf(movie.getVote_average()));
             description.setText(String.valueOf(movie.getOverview()));
@@ -65,6 +72,11 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
                     .apply(RequestOptions.skipMemoryCacheOf(true))
                     .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
                     .into(picture);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    listener.onItemClick(movie);
+                }
+            });
         }
     }
 }

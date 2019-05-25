@@ -26,6 +26,10 @@ public class MovieBO {
     @Expose
     private String posterPath;
 
+    @SerializedName("poster_path")
+    @Expose
+    private String picture;
+
     @SerializedName("release_date")
     @Expose
     private String releaseDate;
@@ -100,5 +104,13 @@ public class MovieBO {
 
     public void setGenreIds(List<Integer> genreIds) {
         this.genreIds = genreIds;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 }

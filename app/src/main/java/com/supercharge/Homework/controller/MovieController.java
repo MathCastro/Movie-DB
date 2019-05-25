@@ -1,13 +1,23 @@
 package com.supercharge.Homework.controller;
 
+import android.content.Intent;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 import com.supercharge.Homework.R;
 import com.supercharge.Homework.adapter.MoviesAdapter;
+import com.supercharge.Homework.model.MovieBO;
 import com.supercharge.Homework.model.response.MoviesResponseBO;
 import com.supercharge.Homework.service.MovieService;
+import com.supercharge.Homework.view.DetailActivity;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,7 +53,14 @@ public class MovieController {
                     if(response.body().getMovies().isEmpty()) {
                         showDialog("Did not found any movie", activity);
                     }
-                    moviesList.setAdapter(new MoviesAdapter(response.body().getMovies()));
+                    moviesList.setAdapter(new MoviesAdapter(response.body().getMovies(), new MoviesAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(MovieBO item) {
+                            Intent myIntent = new Intent(activity, DetailActivity.class);
+                            myIntent.putExtra("message", String.valueOf(item.getId()));
+                            activity.startActivity(myIntent);
+                        }
+                    }));
 
                 } else {
                     if(response.code() == 400) {
@@ -60,8 +77,54 @@ public class MovieController {
 
             @Override
             public void onFailure(Call<MoviesResponseBO> call, Throwable t) {
-//                showDialog("Could not connect to server", activity);
-                System.out.println("Failure");
+                showDialog("Could not connect to server", activity);
+            }
+        });
+    }
+
+    public void getMovieById(final AppCompatActivity activity, final String id, final ImageView poster, final TextView title) {
+
+        final String baseUrl = activity.getResources().getString(R.string.base_url);
+        final String apiKey = activity.getResources().getString(R.string.api_key);
+
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+
+        Retrofit retrofit = new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(baseUrl).client(httpClient.build()).build();
+
+        MovieService movieService = retrofit.create(MovieService.class);
+
+        Call<MovieBO> call = movieService.getMovieById(id, apiKey, language);
+
+        call.enqueue(new Callback<MovieBO>() {
+            @Override
+            public void onResponse(Call<MovieBO> call, retrofit2.Response<MovieBO> response) {
+                if(response.isSuccessful()) {
+                    System.out.println(response.body());
+                    System.out.println("TAG" + "response 33: " + new Gson().toJson(response.body()));
+                    String url = "http://image.tmdb.org/t/p/w500" + response.body().getPicture();
+                    Glide.with(poster)
+                            .load(url)
+                            .apply(RequestOptions.skipMemoryCacheOf(true))
+                            .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+                            .into(poster);
+                    title.setText(response.body().getTitle());
+
+                } else {
+                    if(response.code() == 400) {
+                        showDialog("Not found any movie", activity);
+                    } else if (response.code() == 401) {
+                        showDialog("Invalid API key", activity);
+                    } else {
+                        showDialog("Unexpected error", activity);
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<MovieBO> call, Throwable t) {
+                showDialog("Could not connect to server", activity);
             }
         });
     }
