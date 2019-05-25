@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Homework</string>
+    <string name="api_key">43a7ea280d085bd0376e108680615c7f</string>
+    <string name="base_url">https://api.themoviedb.org/</string>
 </resources>
