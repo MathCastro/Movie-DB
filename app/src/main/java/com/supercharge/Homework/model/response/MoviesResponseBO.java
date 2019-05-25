@@ -1,6 +1,5 @@
 package com.supercharge.Homework.model.response;
 
-import android.graphics.Movie;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.supercharge.Homework.model.MovieBO;
