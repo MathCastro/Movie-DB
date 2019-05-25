@@ -1,8 +1,11 @@
 package com.supercharge.Homework.controller;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.supercharge.Homework.R;
+import com.supercharge.Homework.adapter.MoviesAdapter;
 import com.supercharge.Homework.model.response.MoviesResponseBO;
 import com.supercharge.Homework.service.MovieService;
 import okhttp3.OkHttpClient;
@@ -15,7 +18,7 @@ public class MovieController {
 
     private static final String language = "en_US";
 
-    public void getMovies(final AppCompatActivity activity) {
+    public void getMovies(final AppCompatActivity activity, final RecyclerView moviesList, final MoviesAdapter adapter) {
 
         final String baseUrl = activity.getResources().getString(R.string.base_url);
         final String apiKey = activity.getResources().getString(R.string.api_key);
@@ -35,6 +38,7 @@ public class MovieController {
                     System.out.println(response.body().getMovies());
                     System.out.println("TAG" + "response 33: " + new Gson().toJson(response.body().getMovies()));
 
+                    moviesList.setAdapter(new MoviesAdapter(response.body().getMovies()));
 
                 } else {
                     if(response.code() == 400) {

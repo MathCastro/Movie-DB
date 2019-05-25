@@ -22,7 +22,7 @@ public class MovieBO {
     @Expose
     private double popularity;
 
-    @SerializedName("poster_path")
+    @SerializedName("backdrop_path")
     @Expose
     private String posterPath;
 
