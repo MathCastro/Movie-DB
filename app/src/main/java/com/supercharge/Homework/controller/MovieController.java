@@ -14,6 +14,8 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.supercharge.Homework.util.ShowDialogKt.showDialog;
+
 public class MovieController {
 
     private static final String language = "en_US";
@@ -38,18 +40,18 @@ public class MovieController {
                     System.out.println(response.body().getMovies());
                     System.out.println("TAG" + "response 33: " + new Gson().toJson(response.body().getMovies()));
 
+                    if(response.body().getMovies().isEmpty()) {
+                        showDialog("Did not found any movie", activity);
+                    }
                     moviesList.setAdapter(new MoviesAdapter(response.body().getMovies()));
 
                 } else {
                     if(response.code() == 400) {
-                        System.out.println(response.body());
-//                        showDialog("Wrong login", activity);
+                        showDialog("Not found any movie", activity);
                     } else if (response.code() == 401) {
-                        System.out.println(response.body());
-//                        showDialog("Wrong password", activity);
+                        showDialog("Invalid API key", activity);
                     } else {
-                        System.out.println(response.errorBody());
-//                        showDialog("Missing informations", activity);
+                        showDialog("Unexpected error", activity);
                     }
 
                 }

@@ -8,6 +8,8 @@ import com.supercharge.Homework.adapter.MoviesAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.supercharge.Homework.R
 import com.supercharge.Homework.util.SharedPref
+import androidx.core.app.NavUtils
+import android.view.MenuItem
 
 
 class MainActivity : AppCompatActivity() {
@@ -28,6 +30,16 @@ class MainActivity : AppCompatActivity() {
         moviesList!!.layoutManager = LinearLayoutManager(this)
 
         MovieController().getMovies(this, moviesList, adapter, search)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 
