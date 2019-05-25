@@ -18,7 +18,7 @@ public class MovieController {
 
     private static final String language = "en_US";
 
-    public void getMovies(final AppCompatActivity activity, final RecyclerView moviesList, final MoviesAdapter adapter) {
+    public void getMovies(final AppCompatActivity activity, final RecyclerView moviesList, final MoviesAdapter adapter, final String search) {
 
         final String baseUrl = activity.getResources().getString(R.string.base_url);
         final String apiKey = activity.getResources().getString(R.string.api_key);
@@ -29,7 +29,7 @@ public class MovieController {
 
         MovieService movieService = retrofit.create(MovieService.class);
 
-        Call<MoviesResponseBO> call = movieService.getAllMoviews(apiKey, language, "a");
+        Call<MoviesResponseBO> call = movieService.getAllMoviews(apiKey, language, search);
 
         call.enqueue(new Callback<MoviesResponseBO>() {
             @Override

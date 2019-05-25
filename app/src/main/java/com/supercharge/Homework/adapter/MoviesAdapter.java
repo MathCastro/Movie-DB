@@ -39,11 +39,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
     }
 
     class MovieViewHolder extends RecyclerView.ViewHolder {
-        TextView releaseDate;
         TextView title;
         TextView rating;
         TextView description;
-        TextView genres;
         ImageView picture;
 
 
@@ -56,11 +54,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         }
 
         public void bind(MovieBO movie) {
-//            releaseDate.setText(movie.getReleaseDate().split("-")[0]);
             title.setText(movie.getTitle());
             rating.setText(String.valueOf(movie.getVote_average()));
             description.setText(String.valueOf(movie.getOverview()));
-//            genres.setText("");
             String url = "http://image.tmdb.org/t/p/w500" + movie.getPosterPath();
             Glide.with(itemView)
                     .load(url)
