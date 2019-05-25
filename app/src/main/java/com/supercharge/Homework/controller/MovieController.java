@@ -33,7 +33,7 @@ public class MovieController {
             public void onResponse(Call<MoviesResponseBO> call, retrofit2.Response<MoviesResponseBO> response) {
                 if(response.isSuccessful()) {
                     System.out.println(response.body().getMovies());
-                    System.out.println("TAG" + "response 33: " + new Gson().toJson(response.body()));
+                    System.out.println("TAG" + "response 33: " + new Gson().toJson(response.body().getMovies()));
 
 
                 } else {
@@ -55,6 +55,7 @@ public class MovieController {
             @Override
             public void onFailure(Call<MoviesResponseBO> call, Throwable t) {
 //                showDialog("Could not connect to server", activity);
+                System.out.println("Failure");
             }
         });
     }

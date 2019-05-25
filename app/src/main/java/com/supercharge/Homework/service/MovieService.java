@@ -15,4 +15,10 @@ public interface MovieService {
             @Query("language") String language,
             @Query("query") String query
     );
+
+    @GET("/3/movie")
+    Call<MoviesResponseBO> getMovieById(
+            @Query("api_key") String apiKey,
+            @Query("language") String language
+    );
 }

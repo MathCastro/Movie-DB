@@ -3,6 +3,7 @@ package com.supercharge.Homework.model.response;
 import android.graphics.Movie;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.supercharge.Homework.model.MovieBO;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class MoviesResponseBO {
 
     @SerializedName("results")
     @Expose
-    private List<Movie> movies;
+    private List<MovieBO> movies;
 
     @SerializedName("total_pages")
     @Expose
@@ -40,11 +41,11 @@ public class MoviesResponseBO {
         this.totalResults = totalResults;
     }
 
-    public List<Movie> getMovies() {
+    public List<MovieBO> getMovies() {
         return movies;
     }
 
-    public void setMovies(List<Movie> movies) {
+    public void setMovies(List<MovieBO> movies) {
         this.movies = movies;
     }
 

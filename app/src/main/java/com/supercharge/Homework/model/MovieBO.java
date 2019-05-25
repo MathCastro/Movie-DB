@@ -16,7 +16,7 @@ public class MovieBO {
 
     @SerializedName("overview")
     @Expose
-    private double overview;
+    private String overview;
 
     @SerializedName("popularity")
     @Expose
@@ -32,7 +32,7 @@ public class MovieBO {
 
     @SerializedName("vote_average")
     @Expose
-    private float vote_average;
+    private double vote_average;
 
     @SerializedName("genre_ids")
     @Expose
@@ -54,11 +54,11 @@ public class MovieBO {
         this.title = title;
     }
 
-    public double getOverview() {
+    public String getOverview() {
         return overview;
     }
 
-    public void setOverview(double overview) {
+    public void setOverview(String overview) {
         this.overview = overview;
     }
 
@@ -86,11 +86,11 @@ public class MovieBO {
         this.releaseDate = releaseDate;
     }
 
-    public float getVote_average() {
+    public double getVote_average() {
         return vote_average;
     }
 
-    public void setVote_average(float vote_average) {
+    public void setVote_average(double vote_average) {
         this.vote_average = vote_average;
     }
 
