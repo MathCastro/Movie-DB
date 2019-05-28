@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         moviesList = this.findViewById(R.id.movies_list)
         moviesList!!.layoutManager = LinearLayoutManager(this)
 
-        MovieController().getMovies(this, moviesList, adapter, search)
+        MovieController().getMovies(this, moviesList!!, search)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

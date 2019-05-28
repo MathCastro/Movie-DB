@@ -19,9 +19,7 @@ class MoviesAdapter(private val movies: List<MovieBO>, private val listener: OnI
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        if (listener != null) {
-            holder.bind(movies.get(position), listener)
-        }
+        holder.bind(movies.get(position), listener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
