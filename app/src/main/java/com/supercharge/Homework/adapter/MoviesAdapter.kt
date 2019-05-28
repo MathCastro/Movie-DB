@@ -23,8 +23,8 @@ class MoviesAdapter(private val movies: List<MovieBO>, private val listener: OnI
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        var view: View = LayoutInflater.from(parent.context).inflate(R.layout.single_movie_item, parent, false);
-        return MovieViewHolder(view);
+        var view: View = LayoutInflater.from(parent.context).inflate(R.layout.single_movie_item, parent, false)
+        return MovieViewHolder(view)
     }
 
     override fun getItemCount(): Int {
