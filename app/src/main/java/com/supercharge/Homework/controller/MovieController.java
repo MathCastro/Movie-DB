@@ -1,12 +1,9 @@
 package com.supercharge.Homework.controller;
 
 import android.content.Intent;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -17,14 +14,13 @@ import com.supercharge.Homework.adapter.MoviesAdapter;
 import com.supercharge.Homework.model.MovieBO;
 import com.supercharge.Homework.model.response.MoviesResponseBO;
 import com.supercharge.Homework.service.MovieService;
+import com.supercharge.Homework.util.Utils;
 import com.supercharge.Homework.view.DetailActivity;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static com.supercharge.Homework.util.ShowDialogKt.showDialog;
 
 public class MovieController {
 
@@ -51,7 +47,7 @@ public class MovieController {
                     System.out.println("TAG" + "response 33: " + new Gson().toJson(response.body().getMovies()));
 
                     if(response.body().getMovies().isEmpty()) {
-                        showDialog("Did not found any movie", activity);
+                        Utils.showDialog("Did not found any movie", activity);
                     }
                     moviesList.setAdapter(new MoviesAdapter(response.body().getMovies(), new MoviesAdapter.OnItemClickListener() {
                         @Override
@@ -64,11 +60,11 @@ public class MovieController {
 
                 } else {
                     if(response.code() == 400) {
-                        showDialog("Not found any movie", activity);
+                        Utils.showDialog("Not found any movie", activity);
                     } else if (response.code() == 401) {
-                        showDialog("Invalid API key", activity);
+                        Utils.showDialog("Invalid API key", activity);
                     } else {
-                        showDialog("Unexpected error", activity);
+                        Utils.showDialog("Unexpected error", activity);
                     }
 
                 }
@@ -77,7 +73,7 @@ public class MovieController {
 
             @Override
             public void onFailure(Call<MoviesResponseBO> call, Throwable t) {
-                showDialog("Could not connect to server", activity);
+                Utils.showDialog("Could not connect to server", activity);
             }
         });
     }
@@ -114,11 +110,11 @@ public class MovieController {
 
                 } else {
                     if(response.code() == 400) {
-                        showDialog("Not found any movie", activity);
+                        Utils.showDialog("Not found any movie", activity);
                     } else if (response.code() == 401) {
-                        showDialog("Invalid API key", activity);
+                        Utils.showDialog("Invalid API key", activity);
                     } else {
-                        showDialog("Unexpected error", activity);
+                        Utils.showDialog("Unexpected error", activity);
                     }
 
                 }
@@ -127,7 +123,7 @@ public class MovieController {
 
             @Override
             public void onFailure(Call<MovieBO> call, Throwable t) {
-                showDialog("Could not connect to server", activity);
+                Utils.showDialog("Could not connect to server", activity);
             }
         });
     }

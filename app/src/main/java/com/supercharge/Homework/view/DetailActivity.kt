@@ -22,7 +22,6 @@ class DetailActivity : AppCompatActivity() {
 
         val intent = intent
         val message = intent.getStringExtra("message")
-        print(message)
 
         MovieController().getMovieById(this, message, poster, movie_title, overview, release_date, average)
     }

@@ -7,24 +7,23 @@ import com.supercharge.Homework.controller.MovieController
 import com.supercharge.Homework.adapter.MoviesAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.supercharge.Homework.R
-import com.supercharge.Homework.util.SharedPref
-import androidx.core.app.NavUtils
 import android.view.MenuItem
 
 
 class MainActivity : AppCompatActivity() {
 
     var moviesList: RecyclerView? = null
-    val adapter: MoviesAdapter? = null
+    private val adapter: MoviesAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val intent = intent
+        val search = intent.getStringExtra("message")
+
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.title = ""
-
-        val search = SharedPref.getString(this)
 
         moviesList = this.findViewById(R.id.movies_list)
         moviesList!!.layoutManager = LinearLayoutManager(this)
@@ -33,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.getItemId()) {
+        when (item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
                 return true
