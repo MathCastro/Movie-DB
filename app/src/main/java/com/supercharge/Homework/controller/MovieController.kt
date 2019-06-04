@@ -80,10 +80,7 @@ class MovieController {
         activity: AppCompatActivity,
         id: String,
         poster: ImageView,
-        title: TextView,
-        overview: TextView,
-        releaseDate: TextView,
-        average: TextView
+        combine: (movie: MovieBO) -> MovieBO
     ) {
 
         val baseUrl = activity.resources.getString(R.string.base_url)
@@ -109,18 +106,12 @@ class MovieController {
                         .apply(RequestOptions.skipMemoryCacheOf(true))
                         .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
                         .into(poster)
-                    title.text = response.body()!!.title
-                    overview.text = response.body()!!.overview
-                    releaseDate.text = response.body()!!.releaseDate!!.replace('-', '/')
-                    average.text = response.body()!!.vote_average.toString()
-
+                    combine(response.body()!!)
                 } else {
-                    if (response.code() == 400) {
-                        Utils.showDialog("Not found any movie", activity)
-                    } else if (response.code() == 401) {
-                        Utils.showDialog("Invalid API key", activity)
-                    } else {
-                        Utils.showDialog("Unexpected error", activity)
+                    when {
+                        response.code() == 400 -> Utils.showDialog("Not found any movie", activity)
+                        response.code() == 401 -> Utils.showDialog("Invalid API key", activity)
+                        else -> Utils.showDialog("Unexpected error", activity)
                     }
 
                 }

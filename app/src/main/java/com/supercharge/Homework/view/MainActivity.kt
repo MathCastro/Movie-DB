@@ -13,7 +13,6 @@ import android.view.MenuItem
 class MainActivity : AppCompatActivity() {
 
     var moviesList: RecyclerView? = null
-    private val adapter: MoviesAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

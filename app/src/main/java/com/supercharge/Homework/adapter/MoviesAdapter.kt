@@ -41,7 +41,7 @@ class MoviesAdapter(private val movies: List<MovieBO>, private val listener: OnI
 
         fun bind(movie: MovieBO, listener: OnItemClickListener) {
             title.text = movie.title
-            rating.text = movie.vote_average.toString()
+            rating.text = movie.voteAverage.toString()
             description.text = movie.overview.toString()
             val url = "http://image.tmdb.org/t/p/w500" + movie.posterPath
             Glide.with(itemView)

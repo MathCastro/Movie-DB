@@ -34,7 +34,7 @@ class MovieBO {
 
     @SerializedName("vote_average")
     @Expose
-    val vote_average: Double = 0.toDouble()
+    val voteAverage: Double = 0.toDouble()
 
     @SerializedName("genre_ids")
     @Expose
