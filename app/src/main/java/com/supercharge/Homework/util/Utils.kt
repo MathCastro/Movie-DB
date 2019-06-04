@@ -18,7 +18,7 @@ object Utils {
         dialog.show()
     }
 
-
+    @JvmStatic
     private fun isEmpty(editText: TextView): Boolean {
 
         val input = editText.text.toString().trim { it <= ' ' }
@@ -26,12 +26,14 @@ object Utils {
 
     }
 
+    @JvmStatic
     private fun setError(editText: TextView, errorString: String) {
 
         editText.error = errorString
 
     }
 
+    @JvmStatic
     private fun clearError(editText: TextView) {
 
         editText.error = null
